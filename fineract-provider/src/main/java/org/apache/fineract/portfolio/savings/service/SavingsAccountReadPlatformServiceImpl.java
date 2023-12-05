@@ -213,8 +213,13 @@ public class SavingsAccountReadPlatformServiceImpl implements SavingsAccountRead
                 arrayPos = arrayPos + 1;
             }
             if (searchParameters.getOfficeId() != null) {
-                sqlBuilder.append("and c.office_id =?");
+                sqlBuilder.append(" and c.office_id = ?");
                 objectArray[arrayPos] = searchParameters.getOfficeId();
+                arrayPos = arrayPos + 1;
+            }
+            if (searchParameters.getDateOfBirth() != null) {
+                sqlBuilder.append(" and c.date_of_birth = ?");
+                objectArray[arrayPos] = searchParameters.getDateOfBirth();
                 arrayPos = arrayPos + 1;
             }
             if (searchParameters.isOrderByRequested()) {
@@ -748,7 +753,7 @@ public class SavingsAccountReadPlatformServiceImpl implements SavingsAccountRead
             final StringBuilder sqlBuilder = new StringBuilder(400);
             sqlBuilder.append("sa.id as id, sa.account_no as accountNo, sa.external_id as externalId, ");
             sqlBuilder.append("sa.deposit_type_enum as depositType, ");
-            sqlBuilder.append("c.id as clientId, c.display_name as clientName, ");
+            sqlBuilder.append("c.id as clientId, c.display_name as clientName, c.date_of_birth as dateOfBirth, ");
             sqlBuilder.append("g.id as groupId, g.display_name as groupName, ");
             sqlBuilder.append("sp.id as productId, sp.name as productName, ");
             sqlBuilder.append("s.id fieldOfficerId, s.display_name as fieldOfficerName, ");

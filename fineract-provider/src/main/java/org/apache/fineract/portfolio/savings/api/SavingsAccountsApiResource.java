@@ -125,17 +125,18 @@ public class SavingsAccountsApiResource {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = SavingsAccountsApiResourceSwagger.GetSavingsAccountsResponse.class))) })
     public String retrieveAll(@Context final UriInfo uriInfo,
-            @QueryParam("sqlSearch") @Parameter(description = "sqlSearch") final String sqlSearch,
-            @QueryParam("externalId") @Parameter(description = "externalId") final String externalId,
-            // @QueryParam("underHierarchy") final String hierarchy,
-            @QueryParam("offset") @Parameter(description = "offset") final Integer offset,
-            @QueryParam("limit") @Parameter(description = "limit") final Integer limit,
-            @QueryParam("orderBy") @Parameter(description = "orderBy") final String orderBy,
-            @QueryParam("sortOrder") @Parameter(description = "sortOrder") final String sortOrder) {
+                              @QueryParam("sqlSearch") @Parameter(description = "sqlSearch") final String sqlSearch,
+                              @QueryParam("externalId") @Parameter(description = "externalId") final String externalId,
+                              // @QueryParam("underHierarchy") final String hierarchy,
+                              @QueryParam("offset") @Parameter(description = "offset") final Integer offset,
+                              @QueryParam("limit") @Parameter(description = "limit") final Integer limit,
+                              @QueryParam("orderBy") @Parameter(description = "orderBy") final String orderBy,
+                              @QueryParam("sortOrder") @Parameter(description = "sortOrder") final String sortOrder,
+                              @QueryParam("birthday") @Parameter(description = "birthday") final String birthday) {
 
         context.authenticatedUser().validateHasReadPermission(SavingsApiConstants.SAVINGS_ACCOUNT_RESOURCE_NAME);
 
-        final SearchParameters searchParameters = SearchParameters.forSavings(sqlSearch, externalId, offset, limit, orderBy, sortOrder);
+        final SearchParameters searchParameters = SearchParameters.forSavings(sqlSearch, externalId, offset, limit, orderBy, sortOrder, birthday);
 
         final Page<SavingsAccountData> products = savingsAccountReadPlatformService.retrieveAll(searchParameters);
 
